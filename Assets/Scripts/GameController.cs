@@ -5,16 +5,21 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public GameObject dolphin;
-    public float x;
-    public float y;
-    public float z;
+    //I removed the floats as you can store these values in a Vector 3 (See inside Unity)
+    //public float x; 
+    //public float y;
+    //public float z;
+    private Vector3 dolphinStart; //the new variable whihc we set in start
     public float rotateZ;
     public Vector3 sizeChange;
     private Vector3 newPosition;
-    private Vector3 initialCoor;
+
+    //Wont need this one now
+    //private Vector3 initialCoor;
     
-    void start(){
-        initialCoor = dolphin.transform.position;
+    void Start(){
+        //boom we get the current starting pos and store it here as a vector3
+        dolphinStart = dolphin.transform.position;
     }
 
     public void MoveLeft()
@@ -64,7 +69,8 @@ public class GameController : MonoBehaviour
     }
 
     public void ResetValues(){
-        dolphin.transform.position = initialCoor;
+        //we can now use the dolphinStart to set the 3 values now
+        dolphin.transform.position = new Vector3(dolphinStart.x, dolphinStart.y, dolphinStart.z);
         dolphin.transform.rotation = Quaternion.Euler(new Vector3(0f, rotateZ, 0f));
         dolphin.transform.localScale = new Vector3(1,1,1);
     }
