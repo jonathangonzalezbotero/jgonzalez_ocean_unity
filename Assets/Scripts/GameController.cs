@@ -5,21 +5,15 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public GameObject dolphin;
-    //I removed the floats as you can store these values in a Vector 3 (See inside Unity)
-    //public float x; 
-    //public float y;
-    //public float z;
-    private Vector3 dolphinStart; //the new variable whihc we set in start
-    public float rotateZ;
     public Vector3 sizeChange;
+    public float rotate;
+    private float rotateStart;
     private Vector3 newPosition;
+    private Vector3 dolphinStart;
 
-    //Wont need this one now
-    //private Vector3 initialCoor;
-    
     void Start(){
-        //boom we get the current starting pos and store it here as a vector3
         dolphinStart = dolphin.transform.position;
+        rotateStart = rotate;
     }
 
     public void MoveLeft()
@@ -51,13 +45,13 @@ public class GameController : MonoBehaviour
     }
 
     public void RotateRight(){
-        rotateZ = rotateZ + 1f;
-        dolphin.transform.Rotate(0f, rotateZ, 0f);
+        rotate = rotate - 1f;
+        dolphin.transform.rotation = Quaternion.Euler(new Vector3(0f, rotate, 0f));
     }
 
     public void RotateLeft(){
-        rotateZ = rotateZ - 1f;
-        dolphin.transform.Rotate(0f, rotateZ, 0f);
+        rotate = rotate + 1f;
+        dolphin.transform.rotation = Quaternion.Euler(new Vector3(0f, rotate, 0f));
     }
 
     public void GrowUp(){
@@ -69,9 +63,8 @@ public class GameController : MonoBehaviour
     }
 
     public void ResetValues(){
-        //we can now use the dolphinStart to set the 3 values now
         dolphin.transform.position = new Vector3(dolphinStart.x, dolphinStart.y, dolphinStart.z);
-        dolphin.transform.rotation = Quaternion.Euler(new Vector3(0f, rotateZ, 0f));
+        dolphin.transform.rotation = Quaternion.Euler(new Vector3(0f, rotateStart, 0f));
         dolphin.transform.localScale = new Vector3(1,1,1);
     }
 }
